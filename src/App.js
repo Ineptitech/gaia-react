@@ -15,19 +15,24 @@ function App() {
   //Switching menus
   const [activeMenu, switchActiveMenu] = useState("characters");
 
+  //Canvas size 
+  const [size, updateSize] = useState(Math.min(window.innerWidth, window.innerHeight));
   const canvasRef = useRef(null);
+  
+  
 
   useEffect(() => {
+    window.addEventListener("resize", () => {updateSize(Math.min(window.innerWidth, window.innerHeight))})
     //Retrieve images
     fetch("http://localhost/clientwork/gaia/public/cache.json")
     .then(r => r.json())
-    .then(data => {storeImages(data)})
+    .then(data => {storeImages(data)});
   }, [])
 
   return (
     <div className="App">
-      <Menu canvas={canvasRef.current} images={images} active={activeMenu} switchActiveMenu={switchActiveMenu} update={{characters: setCharacters, eyes: setEyes, misc: setMisc }} selected={{characters: characters.name, eyes: eyes.name, misc: misc.name}} />
-      <Canvas ref={canvasRef} characters={characters.img} eyes={eyes.img} misc={misc.img} />
+      <Menu canvas={canvasRef.current} images={images} active={activeMenu} switchActiveMenu={switchActiveMenu} updateCategory={{characters: setCharacters, eyes: setEyes, misc: setMisc }} selected={{characters: characters.name, eyes: eyes.name, misc: misc.name}} />
+      <Canvas ref={canvasRef} characters={characters.img} eyes={eyes.img} misc={misc.img} size={size} />
     </div>
   );
 }

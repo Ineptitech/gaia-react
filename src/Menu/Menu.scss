@@ -3,17 +3,61 @@
   grid-area: menu;
   height: 100%;
   background-color: #fff;
-  overflow-y: scroll;
 
-  &-button-tray {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 128px;
+  display: grid;
+  grid-template-rows: repeat(2, 64px) 100fr;
+
+  &-buttons, &-tabs {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    &:first-child { margin-left: 0; }
+    &:last-child { margin-right: 0; }
+    button {
+      cursor: pointer;
+      flex-grow: 1;
+      height: 3em;
+      border: none;
+      background-color: hsl(219, 79%, 80%);
+      transition: 0.25s ease filter;
+      &:hover {
+        filter: brightness(80%);
+      }
+    }
+  }
+  &-buttons {
+    padding: 5%;
+    button {
+      margin: 0 4px;
+    }
+  }
+  &-tabs {
+    button {
+      border-right: 1px solid hsla(0,0,0,0.2);
+      &:first-child {
+        border-top-left-radius: 8px;
+      }
+      &:last-child {
+        border-top-right-radius: 8px;
+        border-right: none;
+      }
+    }
   }
   &-item-container {
-    display: none;
-    &.Menu-active {
-      display: block;
+    height: calc(100vh - 128px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  @media only screen and (max-width: calc(100vmin + 300px)) {
+    & { 
+      left: -300px;
+      .hamburger {
+        display: block;
+        position: absolute;
+        top: 0; right: -64px;
+        width: 64px; height: 64px;
+      }
     }
   }
 }

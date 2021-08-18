@@ -7,14 +7,14 @@ export const Canvas = React.forwardRef((props, ref) => {
         const canvas = ref.current;
         const ctx = canvas.getContext('2d');
         //Reset the canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, props.size, props.size);
         //Draw selected items
         for (const i of ["characters", "eyes", "misc"]) {
-            ctx.drawImage(props[i], 0, 0)
+            ctx.drawImage(props[i], 0, 0, props.size, props.size)
         }
     });
 
-    return <canvas width="1080" height="1080" ref={ref}></canvas>;
+    return <canvas width={props.size} height={props.size} ref={ref}></canvas>;
 })
 
 export default Canvas

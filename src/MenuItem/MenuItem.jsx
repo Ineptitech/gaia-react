@@ -11,6 +11,8 @@ export const MenuItem = (props) => {
             alt={itemName}
             ref={itemRef}
             crossOrigin="anonymous"
+            tabIndex="0"
+            decoding="async"
             //Pass the ref and the name of the item to the app state, which then re-renders the canvas, which then draws the image. This function is already set to place it in the right category.
             onClick={() => { props.onClick({name: itemName, img: itemRef.current}) }}
         />
