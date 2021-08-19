@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     window.addEventListener("resize", () => {updateSize(Math.min(window.innerWidth, window.innerHeight))})
     //Retrieve images
-    fetch("http://localhost/clientwork/gaia/public/cache.json")
+    fetch("/cache.json")
     .then(r => r.json())
     .then(data => {storeImages(data)});
   }, [])
