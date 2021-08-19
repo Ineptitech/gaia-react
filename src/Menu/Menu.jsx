@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import { MenuItem } from '../MenuItem/MenuItem';
 import './Menu.scss';
 
 export const Menu = (props) => {
-    const downloadLink = useRef(null);
+    const [menuExpanded, toggleMenu] = useState(false);
     const categories = Object.keys(props.images).map(c => c.charAt(0).toUpperCase() + c.slice(1));
     const resetAll = () => {
         //Clear canvas
@@ -39,20 +39,33 @@ export const Menu = (props) => {
         .catch((err) => { console.log(err) })
     }
     return(
-        <div className="Menu">
+        <div className={`Menu${menuExpanded ? " Menu-open" : ""}`}>
             <div className="Menu-buttons">
-                <a href="#" ref={downloadLink} 
-                href={props.canvas?.toDataURL('image/png')} 
+                {props.showHamburger &&
+                    <>
+                        <div className="spacer"></div>
+                        <button className="hamburger" onClick={() => {toggleMenu(!menuExpanded)}} title="Expand Nav">&equiv;</button>
+                    </>
+                }
+                <a className="Menu-button"
+                href={props.canvas?.toDataURL('image/png')}
                 download={`${props.selected.characters}, ${props.selected.eyes}, ${props.selected.misc}.png`}>
-                    <button>Download</button>
+                    <button>
+                        <i className="gg-software-download"></i>
+                    </button>
                 </a>
-                <button onClick={resetAll}>Clear</button>
-                <button onClick={randomizeSelection}>Randomize</button>
+                <button className="Menu-button" onClick={resetAll} title="Clear Canvas">
+                        <i className="gg-erase"></i>
+                </button>
+                <button className="Menu-button" onClick={randomizeSelection} title="Randomize">
+                    <i className="gg-sync"></i>
+                </button>
             </div>
             <div className="Menu-tabs" role="tablist" aria-label="Category Tabs">
                 {categories.map(category => 
                     <button
                     id={`${category}-tab`}
+                    className="Menu-button"
                     role="tab"
                     aria-selected={(props.active === category.toLocaleLowerCase())}
                     aria-controls={`${category}-menu`} 

@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div className="App">
-      <Menu canvas={canvasRef.current} images={images} active={activeMenu} switchActiveMenu={switchActiveMenu} updateCategory={{characters: setCharacters, eyes: setEyes, misc: setMisc }} selected={{characters: characters.name, eyes: eyes.name, misc: misc.name}} />
+      <Menu canvas={canvasRef.current} images={images} active={activeMenu} switchActiveMenu={switchActiveMenu} showHamburger={(window.matchMedia("(max-width: calc(100vmin + 300px))").matches)} updateCategory={{characters: setCharacters, eyes: setEyes, misc: setMisc }} selected={{characters: characters.name, eyes: eyes.name, misc: misc.name}} />
       <Canvas ref={canvasRef} characters={characters.img} eyes={eyes.img} misc={misc.img} size={size} />
     </div>
   );
